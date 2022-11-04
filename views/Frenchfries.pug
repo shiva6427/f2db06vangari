@@ -1,0 +1,34 @@
+extends layout
+
+block content
+
+  h1= title
+  -
+    let results = [
+      {
+        Order_Name : "Crispy Chicken Sandwich ",
+        Order_quantity : "3",
+        Order_price : 24
+      },
+      {
+        Order_Name : "Snickers Blast",
+        Order_quantity : "2",
+        Order_price : 18
+      },
+      {
+        Order_Name : "Cheese Pizza",
+        Order_quantity : "1",
+        Order_price : 15
+      }                   
+    ]
+  div(class= "container-fluid")
+    div(class = "row")
+      each item,index in results
+        div(class= "col-sm-2",  onclick=`buy(${index})`) Order_Name: #{item.Order_Name}
+        div(class= "col-sm-2",  onclick=`buy(${index})`) Order_quantity: #{item.Order_quantity}
+        div(class= "col-sm-2",  onclick=`buy(${index})`) Order_price: #{item.Order_price}
+
+  script.
+    function buy(itemNum){
+      alert(`The purchased item is ${itemNum+1}`)
+    }

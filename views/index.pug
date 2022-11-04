@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  p This is Shiva Vangari
+    button(type="button",class="btn btn-dark",onclick="doBump()") Press me
+  p 
+  div(id="bump") Bump the count
+  script. 
+    var count = 0;
+    var bump=1;
+    function doBump() {
+    count = count+bump;
+    bump++;
+    
+    document.getElementById("bump").innerHTML = 'Bump '+ count +' times';
+    }
+
+  a(href='/Frenchfries') Click here to search for Frenchfries items
