@@ -34,4 +34,17 @@ exports.costume_list = async function(req, res) {
         res.status(500); 
         res.send(`{"error": ${err}}`); 
     }   
+};
+
+// VIEWS 
+// Handle a show all view 
+exports.costume_view_all_Page = async function(req, res) { 
+    try{ 
+        theCostumes = await Costume.find(); 
+        res.render('costume', { title: 'Costume Search Results', results: theCostumes }); 
+    } 
+    catch(err){ 
+        res.status(500); 
+        res.send(`{"error": ${err}}`); 
+    }   
 }; 

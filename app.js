@@ -16,6 +16,7 @@ var FrenchfriesRouter = require('./routes/Frenchfries');
 var gridbuildRouter = require('./routes/gridbuild');
 var selectorRouter = require('./routes/selector');
 var resourceRouter = require('./routes/resource');
+var costumeRouter = require('./routes/costume');
 
 
 
@@ -37,7 +38,7 @@ app.use('/Frenchfries', FrenchfriesRouter);
 app.use('/gridbuild', gridbuildRouter);
 app.use('/selector', selectorRouter);
 app.use('/resource', resourceRouter);
-
+app.use('/costume', costumeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
