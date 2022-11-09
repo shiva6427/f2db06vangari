@@ -5,7 +5,7 @@ This is Readme file added some content
 ```
 class Pizza {
     String Pizza_Type;
-    var size;
+    String size;
     var cost;
 }
 ```
