@@ -9,14 +9,14 @@ const connectionString = process.env.MONGO_CON
 mongoose = require('mongoose'); 
 mongoose.connect(connectionString,  {useNewUrlParser: true, useUnifiedTopology: true}); 
 
-var Costume = require("./models/costume"); 
+var pizzas = require("./models/pizza"); 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var FrenchfriesRouter = require('./routes/Frenchfries');
 var gridbuildRouter = require('./routes/gridbuild');
 var selectorRouter = require('./routes/selector');
 var resourceRouter = require('./routes/resource');
-var costumeRouter = require('./routes/costume');
+var pizzaRouter = require('./routes/pizza');
 
 
 
@@ -38,7 +38,7 @@ app.use('/Frenchfries', FrenchfriesRouter);
 app.use('/gridbuild', gridbuildRouter);
 app.use('/selector', selectorRouter);
 app.use('/resource', resourceRouter);
-app.use('/costume', costumeRouter);
+app.use('/pizza', pizzaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -67,28 +67,28 @@ console.log("Connection to DB succeeded")});
 
 async function recreateDB(){ 
 
-  await Costume.deleteMany(); 
+  await pizzas.deleteMany(); 
  
   let instance1 = new 
-Costume({costume_type:"ghost",  size:'large', cost:25.4}); 
+pizzas({pizza_type:"Cheese",  size:'large', cost:25.4}); 
   instance1.save( function(err,doc) { 
       if(err) return console.error(err); 
       console.log("First object saved") 
   }); 
   let instance2 = new 
-Costume({costume_type:"Thor",  size:'Medium', cost:20.2}); 
+pizzas({pizza_type:"Chicken",  size:'Medium', cost:20.2}); 
   instance2.save( function(err,doc) { 
       if(err) return console.error(err); 
       console.log("Second object saved") 
   }); 
   let instance3 = new 
-Costume({costume_type:"Ironman",  size:'Small', cost:18.9}); 
+pizzas({pizza_type:"Paneer",  size:'Small', cost:18.9}); 
   instance3.save( function(err,doc) { 
       if(err) return console.error(err); 
       console.log("Third object saved") 
   }); 
   let instance4 = new 
-Costume({costume_type:"Ninja",  size:'large', cost:23.4}); 
+pizzas({pizza_type:"Sausage",  size:'large', cost:23.4}); 
   instance4.save( function(err,doc) { 
       if(err) return console.error(err); 
       console.log("Fourth object saved") 
