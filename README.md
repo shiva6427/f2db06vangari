@@ -1,5 +1,11 @@
-# f2wb06vangari
+# f2db06vangari
 This is Readme file added some content
 [Render](https://f2db06vangari.onrender.com)
 <br>
-class= Frenchfries attributes=Order Name(String),Order quantity(String),price(Number)
+```
+class Pizza {
+    String Pizza_Type;
+    var size;
+    var cost;
+}
+```
