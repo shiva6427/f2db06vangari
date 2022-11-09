@@ -4,11 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config(); 
+const connectionString = process.env.MONGO_CON 
+mongoose = require('mongoose'); 
+mongoose.connect(connectionString,  {useNewUrlParser: true, useUnifiedTopology: true}); 
+
+var Costume = require("./models/costume"); 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var FrenchfriesRouter = require('./routes/Frenchfries');
 var gridbuildRouter = require('./routes/gridbuild');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource');
+
+
 
 var app = express();
 
@@ -27,6 +36,8 @@ app.use('/users', usersRouter);
 app.use('/Frenchfries', FrenchfriesRouter);
 app.use('/gridbuild', gridbuildRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,5 +55,47 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+//Get the default connection 
+var db = mongoose.connection; 
+ 
+//Bind connection to error event  
+db.on('error', console.error.bind(console, 'MongoDB connection error:')); 
+db.once("open", function(){ 
+console.log("Connection to DB succeeded")}); 
+
+async function recreateDB(){ 
+
+  await Costume.deleteMany(); 
+ 
+  let instance1 = new 
+Costume({costume_type:"ghost",  size:'large', cost:25.4}); 
+  instance1.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("First object saved") 
+  }); 
+  let instance2 = new 
+Costume({costume_type:"Thor",  size:'Medium', cost:20.2}); 
+  instance2.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Second object saved") 
+  }); 
+  let instance3 = new 
+Costume({costume_type:"Ironman",  size:'Small', cost:18.9}); 
+  instance3.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Third object saved") 
+  }); 
+  let instance4 = new 
+Costume({costume_type:"Ninja",  size:'large', cost:23.4}); 
+  instance4.save( function(err,doc) { 
+      if(err) return console.error(err); 
+      console.log("Fourth object saved") 
+  }); 
+} 
+ 
+let reseed = true; 
+if (reseed) { recreateDB();} 
+
 
 module.exports = app;
