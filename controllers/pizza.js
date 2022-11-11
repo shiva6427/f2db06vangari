@@ -1,14 +1,32 @@
 var pizzas = require('../models/pizza'); 
  
 // List of all Pizzas
-exports.costume_list = function(req, res) { 
-    res.send('NOT IMPLEMENTED: pizzas list'); 
-}; 
- 
-// for a specific Pizza. 
+exports.pizza_list = async function (req, res) {
+    try {
+        thepizzas = await pizzas.find();
+        res.send(thepizzas);
+    }
+    catch (err) {
+        res.status(500);
+        res.send(`{"error": ${err}}`);
+    }
+};
+// for a specific pizza. 
 exports.pizza_detail = function(req, res) { 
-    res.send('NOT IMPLEMENTED: Pizza detail: ' + req.params.id); 
+    res.send('NOT IMPLEMENTED: pizza detail: ' + req.params.id); 
 }; 
+
+// for a specific Pizza. 
+exports.pizza_detail = async function (req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await pizzas.findById(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+};
  
 // Handle Pizza create on POST. 
 exports.pizza_create_post = async function(req, res) { 
@@ -37,20 +55,24 @@ exports.pizza_delete = function(req, res) {
 }; 
  
 // Handle Pizza update form on PUT. 
-exports.pizza_update_put = function(req, res) { 
-    res.send('NOT IMPLEMENTED: pizza update PUT' + req.params.id); 
-}; 
-// List of all pizza 
-exports.pizza_list = async function(req, res) { 
-    try{ 
-        thepizzas = await pizzas.find(); 
-        res.send(thepizzas); 
+exports.pizza_update_put = async function(req, res) { 
+    console.log(`update on id ${req.params.id} with body 
+${JSON.stringify(req.body)}`) 
+    try { 
+        let toUpdate = await pizzas.findById( req.params.id) 
+        // Do updates of properties 
+        if(req.body.pizza_type)  toUpdate.pizza_type = req.body.pizza_type; 
+        if(req.body.cost) toUpdate.cost = req.body.cost; 
+        if(req.body.size) toUpdate.size = req.body.size; 
+        let result = await toUpdate.save(); 
+        console.log("Sucess " + result) 
+        res.send(result) 
+    } catch (err) { 
+        res.status(500) 
+        res.send(`{"error": ${err}: Update for id ${req.params.id} 
+failed`); 
     } 
-    catch(err){ 
-        res.status(500); 
-        res.send(`{"error": ${err}}`); 
-    }   
-};
+}; 
 
 // VIEWS 
 // Handle a show all view 
