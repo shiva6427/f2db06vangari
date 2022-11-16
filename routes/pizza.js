@@ -14,5 +14,8 @@ router.get('/create', pizza_controlers.pizza_create_Page);
 /* GET create update page */ 
 router.get('/update', pizza_controlers.pizza_update_Page); 
 
+/* GET delete pizza page */ 
+router.get('/delete', pizza_controlers.pizza_delete_Page); 
+
 module.exports = router; 
 
