@@ -1,0 +1,47 @@
+extends layout
+block content
+  h1= title
+
+  if (toShow == null)
+    h2 No instance to delete
+  else
+     - let pizzaid = toShow._id 
+     - let pizza_type = toShow.pizza_type 
+     - let pizzacost = toShow.cost 
+     - let pizzasize = toShow.size 
+
+     div.row(class='mb-2')
+        div.mr-1 ID is
+        div #{pizzaid}
+        - let actionid = "/resource/pizza/" + pizzaid
+        form(id='pizzaForm', action= actionid, method="PUT")
+      
+            div.form-group 
+                label.pizzaAttr(for='pizza_type') pizza type 
+                input#pizza_type(type='text' name='pizza_type' , value=pizza_type) 
+            div.form-group 
+                label.pizzaAttr(for='size') pizza size 
+                input#size(type='text' name='size', value=size) 
+            div.form-group 
+                label.pizzaAttr(for='cost') pizza cost 
+                input#cost(type='number' name='cost', value=cost) 
+            input(class="btn btn-success m-2" type="submit") 
+      
+
+        script.
+          document.forms['pizzaForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // TODO do something here to show user that form is being submitted
+            fetch(event.target.action, {
+              method: 'PUT',
+              body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+              return resp.json(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+              alert("Update succeded")
+              // TODO handle body
+            }).catch((error) => {
+              // TODO handle error
+              alert("Update failed " + error )
+            });
+          });

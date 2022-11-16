@@ -11,5 +11,8 @@ router.get('/detail', pizza_controlers.pizza_view_one_Page);
 /* GET create pizza page */ 
 router.get('/create', pizza_controlers.pizza_create_Page); 
 
+/* GET create update page */ 
+router.get('/update', pizza_controlers.pizza_update_Page); 
+
 module.exports = router; 
 
