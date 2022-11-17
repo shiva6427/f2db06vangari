@@ -1,18 +1,19 @@
 extends layout
 
-block content
-  h1= title
-
-  - let pizzas=results
-
-  div(class= "container-fluid")
-    div(class = "row")
-      each pizza,index in pizzas
-        div(class= "col-sm-2 btn btn-light",  onclick=`buy(${index})`) Pizza Type: #{pizza.pizza_type}
-        div(class= "col-sm-2 btn btn-light",  onclick=`buy(${index})`) Pizza Size: #{pizza.size}
-        div(class= "col-sm-2 btn btn-light",  onclick=`buy(${index})`) Pizza Cost: #{pizza.cost}
+block content 
+  h1= title 
+  - let pizzas = results; 
+  div(class="container-fluid") 
+    div(class="row m-1") 
+      each pizza in pizzas
+        - let destination = `dispatch(\"/pizza/update?id=${pizza._id}\")`   
+        div(class="row-sm-2", class="m-1") pizza #{pizza.pizza_type}(#{pizza.size}) is #{pizza.cost}
+        button.btn( class="btn-primary ml-1", onclick= destination) Update  
 
   script.
+    function dispatch(path){ 
+    window.location.href=path 
+    } 
     function buy(itemNum){
       alert(`The purchased item is ${itemNum+1}`)
     }
