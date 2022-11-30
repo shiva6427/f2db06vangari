@@ -19,13 +19,13 @@ router.get('/', pizza_controlers.pizza_view_all_Page );
 router.get('/detail', pizza_controlers.pizza_view_one_Page);
 
 /* GET create pizza page */ 
-router.get('/create', pizza_controlers.pizza_create_Page); 
+router.get('/create', secured,pizza_controlers.pizza_create_Page); 
 
 /* GET update pizza page */ 
 router.get('/update', secured, pizza_controlers.pizza_update_Page); 
 
 /* GET delete pizza page */ 
-router.get('/delete', pizza_controlers.pizza_delete_Page); 
+router.get('/delete',secured, pizza_controlers.pizza_delete_Page); 
 
 module.exports = router; 
 
